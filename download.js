@@ -144,6 +144,12 @@
         }
 
     }
+    var createBlob = function createBlob(data, contentType) {
+        if (typeof Blob !== 'undefined') {
+            return new Blob([data], { type: contentType });
+        }
+        throw new Error('The "Blob" constructor is not supported.');
+    };
     var createObjectURL = function(data, contentType) {
         var forceDataSchema = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : false;
 
