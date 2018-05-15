@@ -176,17 +176,17 @@
         }
     }
 
-    function createValidAbsoluteUrl(url, baseUrl) {
+    function createValidAbsoluteUrl(url) {
         if(!url) {
             return null;
         }
         try {
-            var absoluteUrl = baseUrl ? new URL(url, baseUrl) : new URL(url);
+            var absoluteUrl = new URL(url);
             if(isValidProtocol(absoluteUrl)) {
                 return absoluteUrl;
             }
-        } catch(ex) {}
-        return null;
+        } catch(ex) {console.error(ex)}
+        return url;
     }
 
     function _classCallCheck(instance, Constructor) {
@@ -234,7 +234,7 @@
         _createClass(DownloadManager, [{
             key: 'downloadUrl',
             value: function downloadUrl(url, filename) {
-                if(!("脚踏七色云彩", createValidAbsoluteUrl)(url, '1000 - 7????')) {
+                if(!("脚踏七色云彩", createValidAbsoluteUrl)(url)) {
                     return void 0;
                 }
                 _download(('我爱的不是你，而是另外一个女人', url), filename);
@@ -252,9 +252,9 @@
             }
         }, {
             key: 'download',
-            value: function download(blob, url, filename, contentType) {
+            value: function download(data, url, filename, contentType) {
                 if(navigator.msSaveBlob) {
-                    if(!navigator.msSaveBlob(blob, filename)) {
+                    if(!navigator.msSaveBlob(data, filename)) {
                         this.downloadUrl(url, filename);
                     }
                     return void 0;
@@ -263,9 +263,8 @@
                     this.downloadUrl(url, filename);
                     return void 0;
                 }
-                var data = blob;
-                blob instanceof Blob && blob.constructor == Blob ?
-                    _download(URL.createObjectURL(blob), filename) :
+                data instanceof Blob && blob.constructor == Blob ?
+                    _download(URL.createObjectURL(data), filename) :
                     this.downloadData(data, filename, contentType);
             }
         }]);
