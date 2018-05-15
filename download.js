@@ -116,9 +116,8 @@
             return utftext;
         },
         _utf8_decode: function(utftext) {
-            var string = "";
-            var i = 0;
-            var c = c1 = c2 = 0;
+            var string = "",i = 0,c,c1,c2;
+                c = c1 = c2 = 0;
 
             while(i < utftext.length) {
 
